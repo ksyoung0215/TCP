@@ -129,26 +129,6 @@ public class TCPServer : MonoBehaviour
 		}
 	}
 
-	//  void AcceptNewSocket(System.IAsyncResult iar)
-	//  {
-	//      m_clientSocket = null;
-	//      m_testClientState = TestMessageOrder.NotConnected;
-	//      m_readBuffer = new byte[1024];
-	//      try
-	//      {
-	//          m_clientSocket = m_tcpListener.EndAcceptSocket(iar);
-	//      }
-	//      catch (System.Exception ex)
-	//      {
-	//          //Debug.LogError(string.Format("Exception on new socket: {0}", ex.Message));
-	//      }
-	//      m_clientSocket.NoDelay = true;
-
-	//if (m_clientSocket.Connected)
-	//{
-	//	m_testClientState = TestMessageOrder.Connected;
-	//}        
-	//  }
 	void SendMessage(ClientState client, byte[] msg)
 	{
 		if (client.state == TestMessageOrder.Connected)
