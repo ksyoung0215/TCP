@@ -17,6 +17,7 @@ public class TCPManager : MonoBehaviour
     {
         SERVER,
         CLIENT,
+		HOLOLENS,
         ALL
     }
 
@@ -33,6 +34,7 @@ public class TCPManager : MonoBehaviour
 
     TCPServer tcpServer;
     TCPClient tcpClient;
+	TCPHololensClient tcpHololensClient;
 
     private void Awake()
     {
@@ -49,6 +51,9 @@ public class TCPManager : MonoBehaviour
             case TCPSide.CLIENT:
                 InitTCPClient();
                 break;
+			case TCPSide.HOLOLENS:
+				InitTCPHololensClient();
+				break;
         }        
     }
 
@@ -71,6 +76,15 @@ public class TCPManager : MonoBehaviour
 
         tcpClient.connectState = ConnectionState.NotConnected;
     }
+
+	private void InitTCPHololensClient()
+	{
+		tcpHololensClient = GetComponent<TCPHololensClient>();
+		if (tcpHololensClient == null)
+		{
+			tcpHololensClient = gameObject.AddComponent<TCPHololensClient>();
+		}
+	}
 
     private void Start()
     {
@@ -95,6 +109,9 @@ public class TCPManager : MonoBehaviour
                     tcpClient.StartConnect(strServerIP);
                 }
                 break;
+			case TCPSide.HOLOLENS:
+				tcpHololensClient.Connect(strServerIP, "10000");
+				break;
         }
     }
 
@@ -109,6 +126,9 @@ public class TCPManager : MonoBehaviour
             case TCPSide.CLIENT:
                 tcpClient.Send(msg);
                 break;
+			case TCPSide.HOLOLENS:
+				tcpHololensClient.Send(msg);
+				break;
         }
     }
 
